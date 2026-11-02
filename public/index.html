@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>2048 · SOAP Arcade</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script defer src="/i18n.js"></script>
+    <script defer src="/app.js"></script>
+  </head>
+  <body>
+    <div class="shell">
+      <header>
+        <a class="brand" href="/">▦ <span>SOAP ARCADE</span></a>
+        <div class="header-right">
+          <span class="online" id="connection">LOCAL · SOAP 1.1</span
+          ><button id="language" class="small">EN</button>
+        </div>
+      </header>
+      <main>
+        <section class="game-area">
+          <div class="eyebrow" data-i18n="eyebrow">一个棋盘，无限可能</div>
+          <div class="title-row">
+            <h1>2048<span> /</span></h1>
+            <div class="stats">
+              <div>
+                <span data-i18n="score">当前分数</span
+                ><strong id="score">0</strong>
+              </div>
+              <div>
+                <span data-i18n="best">榜单最高</span
+                ><strong id="best">0</strong>
+              </div>
+            </div>
+          </div>
+          <p class="intro" data-i18n="intro">滑动、合并，向 2048 再近一步。</p>
+          <div class="toolbar">
+            <span id="status" aria-live="polite"></span
+            ><button id="new" data-i18n="newGame">新游戏 ↗</button>
+          </div>
+          <div class="board-wrap">
+            <div
+              id="board"
+              class="board"
+              role="grid"
+              tabindex="0"
+              aria-label="2048"
+            ></div>
+            <div id="overlay" class="overlay" hidden>
+              <span id="state-icon">✦</span>
+              <h2 id="state-title"></h2>
+              <p id="state-help"></p>
+              <button id="continue" data-i18n="continue">继续挑战</button>
+            </div>
+          </div>
+          <div class="below">
+            <span
+              ><kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd>
+              <span data-i18n="controls">方向键 / WASD / 滑动</span></span
+            ><span
+              ><span data-i18n="tile">最高方块</span> <b id="tile">2</b></span
+            >
+          </div>
+          <div class="mobile-controls" aria-label="Direction controls">
+            <button data-direction="LEFT" aria-label="Left">←</button
+            ><button data-direction="UP" aria-label="Up">↑</button
+            ><button data-direction="DOWN" aria-label="Down">↓</button
+            ><button data-direction="RIGHT" aria-label="Right">→</button>
+          </div>
+          <div id="error" class="notice" role="alert" hidden></div>
+          <section id="finish" class="finish" hidden>
+            <h3 data-i18n="saveScore">留下你的成绩</h3>
+            <p data-i18n="submitHelp">
+              提交将结束并锁定本局。获胜后想继续挑战，请先选择继续。
+            </p>
+            <form id="submit">
+              <label for="nickname" data-i18n="nickname">昵称</label>
+              <div class="input-row">
+                <input
+                  id="nickname"
+                  maxlength="32"
+                  autocomplete="nickname"
+                  placeholder="Anonymous"
+                /><button type="submit" data-i18n="submit">提交成绩</button>
+              </div>
+            </form>
+            <p id="submitted" hidden data-i18n="submitted">
+              成绩已保存，本局已结束。
+            </p>
+            <div class="words">
+              <span data-i18n="wordsLabel">英文读分 · DataAccess SOAP</span>
+              <p id="words"></p>
+              <button id="retry-words" class="small" data-i18n="retry">
+                重试
+              </button>
+            </div>
+          </section>
+          <div class="rules">
+            <span>01 /</span>
+            <p data-i18n="rules">
+              相同数字相遇时合并，每次合并计入分数。合成 2048
+              即获胜，也可以继续挑战更高方块。
+            </p>
+          </div>
+        </section>
+        <aside>
+          <section class="leaderboard">
+            <div class="section-heading">
+              <div>
+                <div class="eyebrow">THE HALL OF FAME</div>
+                <h2 data-i18n="leaderboard">高分榜</h2>
+              </div>
+              <button
+                class="icon-button"
+                id="refresh"
+                aria-label="Refresh leaderboard"
+              >
+                ↻
+              </button>
+            </div>
+            <div class="table-head">
+              <span data-i18n="player">玩家</span
+              ><span data-i18n="score">当前分数</span>
+            </div>
+            <ol id="leaders"></ol>
+            <p id="empty" data-i18n="empty">榜单还在等待第一位挑战者。</p>
+            <p class="footnote" data-i18n="rankingNote">
+              TOP 10 · 按分数、最高方块和提交时间排序
+            </p>
+            <form id="best-form">
+              <label for="best-name" data-i18n="personal">查询个人最佳</label>
+              <div class="input-row">
+                <input
+                  id="best-name"
+                  maxlength="32"
+                  placeholder="Anonymous"
+                /><button class="small" data-i18n="find">查询</button>
+              </div>
+              <p id="personal-result"></p>
+            </form>
+          </section>
+          <section class="service-card">
+            <span class="service-dot"></span>
+            <h3 data-i18n="powered">每一步，都经过 SOAP</h3>
+            <p data-i18n="serviceText">
+              游戏操作与排行榜由两个独立 SOAP 契约提供；英文读分来自 DataAccess
+              外部服务。
+            </p>
+            <div class="service-links">
+              <a href="/ws/game?wsdl" target="_blank">GameService ↗</a
+              ><a href="/ws/leaderboard?wsdl" target="_blank"
+                >LeaderboardService ↗</a
+              >
+            </div>
+            <details>
+              <summary data-i18n="logs">查看服务调用记录</summary>
+              <pre id="logs"></pre>
+            </details>
+          </section>
+        </aside>
+      </main>
+      <footer>
+        <span>2048 / SOAP WEB SERVICES</span
+        ><span data-i18n="footer"
+          >两个自建服务 + 一个外部服务 · 本地持久化</span
+        >
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+{
+  "at": "2026-11-02T14:52:44.115Z",
+  "note": "Local samples use an isolated database. Win fixture explicitly seeded for repeatable classroom evidence.",
+  "operations": [
+    {
+      "service": "game",
+      "op": "NewGame",
+      "success": true
+    },
+    {
+      "service": "game",
+      "op": "GetGame",
+      "success": true
+    },
+    {
+      "service": "game",
+      "op": "Move",
+      "success": true
+    },
+    {
+      "service": "game",
+      "op": "ContinueAfterWin",
+      "success": true
+    },
+    {
+      "service": "leaderboard",
+      "op": "SubmitScore",
+      "success": true
+    },
+    {
+      "service": "leaderboard",
+      "op": "GetTopScores",
+      "success": true
+    },
+    {
+      "service": "leaderboard",
+      "op": "GetBestScoreByNickname",
+      "success": true
+    },
+    {
+      "service": "game",
+      "op": "ResetGame",
+      "success": true
+    }
+  ],
+  "external": {
+    "success": false,
+    "code": "NUMBER_WORDS_UNAVAILABLE",
+    "health": {
+      "status": "unavailable",
+      "checkedAt": "2026-11-02T14:52:48.274Z"
+    }
+  }
+}
