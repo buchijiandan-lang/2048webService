@@ -157,14 +157,23 @@
               <pre id="logs"></pre>
             </details>
           </section>
+          <section class="service-card time-card" aria-labelledby="time-title">
+            <h3 id="time-title">北京时间 · 外部 SOAP</h3>
+            <strong id="time-value">—</strong>
+            <p id="time-status" role="status"></p>
+            <p id="time-age"></p>
+            <p>GreyPhillips · getDateTime · SOAP 1.1</p>
+            <button id="time-refresh" class="small">同步时间</button>
+          </section>
         </aside>
       </main>
       <footer>
         <span>2048 / SOAP WEB SERVICES</span
         ><span data-i18n="footer"
-          >两个自建服务 + 一个外部服务 · 本地持久化</span
+          >两个自建服务 + 两个外部集成 · 本地持久化</span
         >
       </footer>
     </div>
+    <script src="/time.js"></script>
   </body>
 </html>

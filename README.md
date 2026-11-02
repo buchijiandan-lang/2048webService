@@ -1,5 +1,11 @@
 # 2048 · SOAP Arcade
 
+新增：**GreyPhillips 外部时间 SOAP**，页面显示换算后的北京时间和同步状态。完整规范见 [时间服务方案](docs/time-service-plan.md)，实测结果见 [时间验证记录](docs/time-verification.md)。组成更新为两个自建 SOAP + 两个外部 SOAP 集成；时间服务已取得真实成功响应，DataAccess 的原失败记录仍单独保留。
+
+时间接口：`GET /api/time`。默认成功缓存 60 秒、失败冷却 15 秒、单次超时 5 秒；`TIME_ENDPOINT` / `TIME_TIMEOUT_MS` 可覆盖。页面显示的是外部采样，不是标准授时，也不参与排行榜排序。实测该源相较本机接收时间慢约 3 分 40 秒。
+
+验证命令：`node scripts/time-evidence.js`（真实 SOAP，两次采样）、`node scripts/time-ui-check.js`（隔离 UI 测试）；原有 `npm test`、`npm run test:ui` 仍有效。以下旧章节的“两个自建加一个外部”是初版记录，以本补充为准。
+
 可玩的 2048 网页，核心操作真实经过 SOAP over HTTP。技术栈为 **Node.js 24 + node-soap + Express + SQLite**，不依赖旧 Java/Maven 工程。
 
 ## 启动

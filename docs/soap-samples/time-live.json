@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-02T15:30:00.256Z",
+  "result": {
+    "getDateTimeResult": "2026-11-02T09:26:20-06:00"
+  },
+  "response": "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"><soap:Body><getDateTimeResponse xmlns=\"http://greyphillips.com/\"><getDateTimeResult>2026-11-02T09:26:20-06:00</getDateTimeResult></getDateTimeResponse></soap:Body></soap:Envelope>",
+  "request": "<?xml version=\"1.0\" encoding=\"utf-8\"?><soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"  xmlns:tns=\"http://greyphillips.com/\" xmlns:s1=\"http://greyphillips.com/AbstractTypes\" xmlns:tm=\"http://microsoft.com/wsdl/mime/textMatching/\"><soap:Body><getDateTime xmlns=\"http://greyphillips.com/\"><strFormat>yyyy-MM-ddTHH:mm:sszzz</strFormat></getDateTime></soap:Body></soap:Envelope>"
+}

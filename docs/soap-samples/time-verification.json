@@ -1,0 +1,26 @@
+{
+  "verifiedAt": "2026-11-02T15:34:22.661Z",
+  "results": [
+    {
+      "success": true,
+      "status": "fresh",
+      "utcTime": "2026-11-02T15:30:41.000Z",
+      "sourceTime": "2026-11-02T09:30:41-06:00",
+      "source": "GreyPhillips SOAP",
+      "fetchedAt": "2026-11-02T15:34:21.139Z",
+      "ageMs": 1,
+      "cached": false
+    },
+    {
+      "success": true,
+      "status": "fresh",
+      "utcTime": "2026-11-02T15:30:42.000Z",
+      "sourceTime": "2026-11-02T09:30:42-06:00",
+      "source": "GreyPhillips SOAP",
+      "fetchedAt": "2026-11-02T15:34:22.626Z",
+      "ageMs": 0,
+      "cached": false
+    }
+  ],
+  "advances": true
+}

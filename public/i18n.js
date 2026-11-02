@@ -27,7 +27,7 @@ window.messages = {
     serviceText:
       "游戏操作与排行榜由两个独立 SOAP 契约提供；英文读分来自 DataAccess 外部服务。",
     logs: "查看服务调用记录",
-    footer: "两个自建服务 + 一个外部服务 · 本地持久化",
+    footer: "两个自建服务 + 两个外部集成 · 本地持久化",
     PLAYING: "进行中",
     PLAYING_AFTER_WIN: "继续挑战中",
     WON: "达成 2048！",
@@ -81,7 +81,8 @@ window.messages = {
     serviceText:
       "Game actions and rankings use two independent SOAP contracts. Score wording comes from the external DataAccess service.",
     logs: "View service calls",
-    footer: "Two local services + one external service · Persistent storage",
+    footer:
+      "Two local services + two external integrations · Persistent storage",
     PLAYING: "Playing",
     PLAYING_AFTER_WIN: "Beyond 2048",
     WON: "You reached 2048!",

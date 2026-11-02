@@ -4,6 +4,7 @@ const { join } = require("node:path");
 const { randomUUID } = require("node:crypto");
 const { Store } = require("./store");
 const { publish, clients } = require("./soap");
+const { TimeServiceClient } = require("./time");
 function normalize(result) {
   if (result.game) {
     result.game.version = Number(result.game.version);
@@ -41,6 +42,13 @@ async function start({
     server = http.createServer(app),
     events = [];
   let proxy;
+  const externalTime = new TimeServiceClient({
+    onCall: (event) => {
+      events.push(event);
+      if (events.length > 100) events.shift();
+      if (!quiet) console.log(JSON.stringify(event));
+    },
+  });
   app.disable("x-powered-by");
   app.use((req, res, next) => {
     res.setHeader("X-Content-Type-Options", "nosniff");
@@ -151,13 +159,17 @@ async function start({
       if (!words) throw Error();
       res.json({ success: true, ...(await words.convert(req.params.score)) });
     } catch (error) {
-      res
-        .status(error.code === "INVALID_SCORE" ? 400 : 503)
-        .json({
-          success: false,
-          code: error.code || "NUMBER_WORDS_UNAVAILABLE",
-        });
+      res.status(error.code === "INVALID_SCORE" ? 400 : 503).json({
+        success: false,
+        code: error.code || "NUMBER_WORDS_UNAVAILABLE",
+      });
     }
+  });
+  app.get("/api/time", async (req, res) => {
+    const requestId = randomUUID();
+    const result = await externalTime.getTime(requestId);
+    res.setHeader("Cache-Control", "no-store");
+    res.status(result.success ? 200 : 503).json({ ...result, requestId });
   });
   app.get("/api/health", (req, res) =>
     res.json({
@@ -165,6 +177,7 @@ async function start({
       soap: "ready",
       database: "ready",
       numberConversion: words?.health || { status: "not_checked" },
+      externalTime: externalTime.health,
     }),
   );
   app.get("/api/events", (req, res) => res.json(events.slice(-30)));
